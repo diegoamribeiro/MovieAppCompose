@@ -14,7 +14,7 @@ class MovieDetailsRepositoryImpl @Inject constructor(
     private val movieDetailsRemoteDataSource: MovieDetailsRemoteDataSource
 ) : MovieDetailsRepository{
     override suspend fun getMovieDetails(movieId: Int): MovieDetails {
-        TODO("Not yet implemented")
+        return movieDetailsRemoteDataSource.getMovieDetails(movieId)
     }
 
     override suspend fun getMoviesSimilar(
