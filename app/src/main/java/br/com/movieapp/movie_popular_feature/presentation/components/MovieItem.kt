@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import br.com.movieapp.R
+import br.com.movieapp.core.presentation.components.common.AsyncImageUrl
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
@@ -31,7 +32,7 @@ fun MovieItem(
     id: Int,
     onClick: (id: Int) -> Unit
 ) {
-    Box(modifier = modifier){
+    Box(modifier = modifier) {
         MovieRate(
             rating = voteAverage,
             modifier = modifier
@@ -51,20 +52,17 @@ fun MovieItem(
             Box(
                 modifier = modifier
             ) {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(imageUrl)
-                        .crossfade(true)
-                        .error(R.drawable.ic_error_image)
-                        .placeholder(R.drawable.ic_placeholder)
-                        .build(),
-                    contentDescription = "",
+
+                AsyncImageUrl(
+                    imageUrl = imageUrl,
                     contentScale = ContentScale.FillHeight,
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
                         .background(Color.Black)
-                        .clip(RoundedCornerShape(8.dp))
+                        .clip(
+                            RoundedCornerShape(8.dp)
+                        )
                 )
             }
         }
@@ -76,6 +74,5 @@ fun MovieItem(
 @Preview
 fun MovieItemPreview() {
     MovieItem(voteAverage = 2.3,
-        imageUrl = ""
-        , id = 3, onClick = {})
+        imageUrl = "", id = 3, onClick = {})
 }

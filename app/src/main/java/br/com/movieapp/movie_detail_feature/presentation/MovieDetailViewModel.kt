@@ -4,9 +4,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.movieapp.core.domain.Movie
+import br.com.movieapp.core.util.Constants
 import br.com.movieapp.core.util.ResourceData
 import br.com.movieapp.core.util.UtilsFunctions
 import br.com.movieapp.movie_detail_feature.domain.usecase.GetMovieDetailsUseCase
@@ -26,16 +28,26 @@ class MovieDetailViewModel @Inject constructor(
     private val movieDetailUseCase: GetMovieDetailsUseCase,
     private val addMovieFavoriteUseCase: AddMovieFavoriteUseCase,
     private val deleteMovieFavoriteUseCase: DeleteMovieFavoriteUseCase,
-    private val isMovieFavoriteUseCase: IsMovieFavoriteUseCase
+    private val isMovieFavoriteUseCase: IsMovieFavoriteUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     var uiState by mutableStateOf(MovieDetailState())
         private set
 
-    fun checkedFavorite(checkedFavorite: MovieDetailEvent.CheckedFavorite){
+    private val movieId = savedStateHandle.get<Int>(key = Constants.MOVIE_DETAIL_ARGUMENT_KEY)
+
+    init {
+        movieId?.let { safeMovieId ->
+            checkedFavorite(MovieDetailEvent.CheckedFavorite(safeMovieId))
+            getMovieDetail(MovieDetailEvent.GetMovieDetails(safeMovieId))
+        }
+    }
+
+    private fun checkedFavorite(checkedFavorite: MovieDetailEvent.CheckedFavorite){
         event(checkedFavorite)
     }
 
-    fun getMovieDetail(getMovieDetail: MovieDetailEvent.GetMovieDetails){
+    private fun getMovieDetail(getMovieDetail: MovieDetailEvent.GetMovieDetails){
         event(getMovieDetail)
     }
 

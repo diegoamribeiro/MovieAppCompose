@@ -6,6 +6,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import br.com.movieapp.R
+import br.com.movieapp.core.presentation.components.common.MovieAppBar
 import br.com.movieapp.movie_favorite_feature.presentation.component.MovieFavoriteContent
 import br.com.movieapp.movie_favorite_feature.presentation.state.MovieFavoriteState
 import br.com.movieapp.ui.theme.black
@@ -17,16 +18,12 @@ fun MovieFavoriteScreen(
     navigateToDetailMovie: (Int) -> Unit
 ) {
     val movies = uiState.movies
-    
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.favorite_movies),
-                        color = white
-                    )
-                },
+            MovieAppBar(
+                title = R.string.favorite_movies,
+                textColor = white,
                 backgroundColor = black
             )
         },
@@ -40,5 +37,5 @@ fun MovieFavoriteScreen(
             )
         }
     )
-    
+
 }

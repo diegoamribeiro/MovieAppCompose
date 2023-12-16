@@ -14,6 +14,7 @@
     <string name="popular_movies">Filmes Populares</string>
     <string name="search_movies">Pesquisa de Filmes</string>
     <string name="favorite_movies">Filmes Favoritos</string>
+    <string name="favorite_movies_empty">Nenhum favorito</string>
     <string name="detail_movie">Detalhe do Filme</string>
 
     <!--    Movie Search-->
