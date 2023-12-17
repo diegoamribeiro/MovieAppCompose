@@ -7,13 +7,13 @@ import br.com.movieapp.movie_popular_feature.domain.repository.MoviePopularRepos
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface GetPopularMovieUseCase{
+interface GetPopularMoviesUseCase{
     operator fun invoke() : Flow<PagingData<Movie>>
 }
 
-class GetPopularMovieUseCaseImpl @Inject constructor(
+class GetPopularMoviesUseCaseImpl @Inject constructor(
     private val repository: MoviePopularRepository
-) : GetPopularMovieUseCase {
+) : GetPopularMoviesUseCase {
     override fun invoke(): Flow<PagingData<Movie>> {
         return  repository.getPopularMovies(
             pagingConfig = PagingConfig(

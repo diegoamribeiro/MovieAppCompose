@@ -27,9 +27,8 @@ class MovieFavoriteViewModel @Inject constructor(
 
     private fun fetch() {
         viewModelScope.launch {
-            getMoviesFavoriteUseCase.invoke().collectLatest { movies ->
-                uiState = uiState.copy(movies = movies)
-            }
+            val movies = getMoviesFavoriteUseCase.invoke()
+            uiState = uiState.copy(movies = movies)
         }
     }
 

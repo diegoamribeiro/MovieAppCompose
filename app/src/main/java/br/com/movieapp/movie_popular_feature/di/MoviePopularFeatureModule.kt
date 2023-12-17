@@ -5,8 +5,8 @@ import br.com.movieapp.movie_popular_feature.data.repository.MoviePopularReposit
 import br.com.movieapp.movie_popular_feature.data.source.MoviePopularRemoteDataSourceImpl
 import br.com.movieapp.movie_popular_feature.domain.repository.MoviePopularRepository
 import br.com.movieapp.movie_popular_feature.domain.source.MoviePopularRemoteDataSource
-import br.com.movieapp.movie_popular_feature.domain.usecase.GetPopularMovieUseCase
-import br.com.movieapp.movie_popular_feature.domain.usecase.GetPopularMovieUseCaseImpl
+import br.com.movieapp.movie_popular_feature.domain.usecase.GetPopularMoviesUseCase
+import br.com.movieapp.movie_popular_feature.domain.usecase.GetPopularMoviesUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,7 @@ object MoviePopularFeatureModule {
 
     @Provides
     @Singleton
-    fun provideGetMoviesPopularUseCase(moviePopularRepository: MoviePopularRepository) : GetPopularMovieUseCase {
-        return GetPopularMovieUseCaseImpl(moviePopularRepository)
+    fun provideGetMoviesPopularUseCase(moviePopularRepository: MoviePopularRepository) : GetPopularMoviesUseCase {
+        return GetPopularMoviesUseCaseImpl(moviePopularRepository)
     }
 }
