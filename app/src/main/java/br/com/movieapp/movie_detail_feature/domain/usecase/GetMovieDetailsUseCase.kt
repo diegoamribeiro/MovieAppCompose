@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 interface GetMovieDetailsUseCase {
@@ -21,7 +20,7 @@ interface GetMovieDetailsUseCase {
 
 class GetMovieDetailsUseCaseImpl @Inject constructor(
     private val repository: MovieDetailsRepository
-) :GetMovieDetailsUseCase {
+) : GetMovieDetailsUseCase {
     override fun invoke(params: GetMovieDetailsUseCase.Params): Flow<ResourceData<Pair<Flow<PagingData<Movie>>, MovieDetails>>> {
         return flow {
             try {
@@ -35,9 +34,9 @@ class GetMovieDetailsUseCaseImpl @Inject constructor(
                     )
                 )
                 emit(ResourceData.Success(moviesSimilar to movieDetails))
-            }catch (exception: Exception){
-                emit(ResourceData.Fail(exception))
             }catch (exception: HttpException){
+                emit(ResourceData.Fail(exception))
+            }catch (exception: Exception){
                 emit(ResourceData.Fail(exception))
             }
         }.flowOn(Dispatchers.IO)

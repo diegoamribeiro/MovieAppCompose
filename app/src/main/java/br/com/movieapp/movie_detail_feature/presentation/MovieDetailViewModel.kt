@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val movieDetailUseCase: GetMovieDetailsUseCase,
+    private val getMovieDetailUseCase: GetMovieDetailsUseCase,
     private val addMovieFavoriteUseCase: AddMovieFavoriteUseCase,
     private val deleteMovieFavoriteUseCase: DeleteMovieFavoriteUseCase,
     private val isMovieFavoriteUseCase: IsMovieFavoriteUseCase,
@@ -38,8 +38,8 @@ class MovieDetailViewModel @Inject constructor(
 
     init {
         movieId?.let { safeMovieId ->
-            //checkedFavorite(MovieDetailEvent.CheckedFavorite(safeMovieId))
-            getMovieDetail(MovieDetailEvent.GetMovieDetails(safeMovieId))
+            checkedFavorite(MovieDetailEvent.CheckedFavorite(safeMovieId))
+            //getMovieDetail(MovieDetailEvent.GetMovieDetails(safeMovieId))
         }
     }
 
@@ -122,10 +122,9 @@ class MovieDetailViewModel @Inject constructor(
                 }
             }
 
-
             is MovieDetailEvent.GetMovieDetails -> {
                 viewModelScope.launch {
-                    movieDetailUseCase.invoke(
+                    getMovieDetailUseCase.invoke(
                         params = GetMovieDetailsUseCase.Params(
                             movieId = event.movieId
                         )
@@ -134,7 +133,7 @@ class MovieDetailViewModel @Inject constructor(
                             is ResourceData.Success -> {
                                 uiState = uiState.copy(
                                     isLoading = false,
-                                    movieDetails = resultData.data.second,
+                                    movieDetails = resultData.data?.second,
                                     results = resultData.data?.first ?: emptyFlow()
                                 )
                             }
